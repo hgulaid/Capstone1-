@@ -1,12 +1,10 @@
 package com.pluralsight;
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +19,7 @@ public class FileReader {
             String line = scanner.nextLine();
             String [] parts = line.split("\\|");
             LocalDate date = LocalDate.parse(parts[0], dateFormatter);
-            LocalTime time = LocalTime.parse(parts[1], timeFormatter);
+            LocalTime time = LocalTime.parse(parts[1].trim(), timeFormatter);
             String description = parts[2].trim();
             String vendor = parts[3].trim();
             double amount = Double.parseDouble(parts[4].trim());

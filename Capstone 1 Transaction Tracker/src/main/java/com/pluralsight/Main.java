@@ -1,5 +1,4 @@
 package com.pluralsight;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -53,15 +52,16 @@ public class Main {
     }
     public static void addDeposit(){
         System.out.println("Deposits");
+        System.out.println("-".repeat(70));
         System.out.println();
         System.out.print("Enter description: ");
         String description = userInput.nextLine();
 
-        System.out.println("Enter vendor: ");
+        System.out.print("Enter vendor: ");
         String vendor = userInput.nextLine();
 
 
-        System.out.println("Enter amount of payment: ");
+        System.out.print("Enter amount of payment: ");
         double amount = Double.parseDouble(userInput.nextLine());
 
         LocalDate date = LocalDate.now();
@@ -71,9 +71,13 @@ public class Main {
 
         try
         {
-            FileWriter writer = new FileWriter("files/transactions.csv");
+            FileWriter writer = new FileWriter("files/transactions.csv", true);
             writer.write(deposit.csvString() + "\n");
             writer.close();
+            System.out.println("Your deposit has been processed thank you!");
+            System.out.println();
+
+
         }catch (IOException exception){
             System.out.println("Sorry we ran into a problem: " + exception.getMessage());
         }
@@ -83,15 +87,16 @@ public class Main {
 
     public static void addPayment(){
         System.out.println("Payments");
+        System.out.println("-".repeat(70));
         System.out.println();
         System.out.print("Enter Payment description: ");
         String description = userInput.nextLine();
 
-        System.out.println("Enter vendor: ");
+        System.out.print("Enter vendor: ");
         String vendor = userInput.nextLine();
 
 
-        System.out.println("Enter amount of payment: ");
+        System.out.print("Enter amount of payment: ");
         double amount = Double.parseDouble(userInput.nextLine());
             amount *= -1;
         LocalDate date = LocalDate.now();
@@ -101,9 +106,12 @@ public class Main {
 
         try
         {
-            FileWriter writer = new FileWriter("files/transactions.csv");
+            FileWriter writer = new FileWriter("files/transactions.csv",true);
             writer.write(payment.csvString() + "\n");
+            System.out.println();
             writer.close();
+            System.out.println("Your payment has been processed thank you!");
+            System.out.println();
         }catch (IOException exception){
             System.out.println("Sorry we ran into a problem: " + exception.getMessage());
         }
@@ -112,3 +120,4 @@ public class Main {
 
     }
 }
+

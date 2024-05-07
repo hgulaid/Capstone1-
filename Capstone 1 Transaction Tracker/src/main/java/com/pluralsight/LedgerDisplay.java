@@ -1,13 +1,9 @@
 package com.pluralsight;
 
-import javax.xml.transform.Source;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
+
 
 public class LedgerDisplay {
 
@@ -37,15 +33,19 @@ private static final Scanner userInput = new Scanner(System.in);
                showAllEntries();
                 //addDeposit();
                 break;
+            case "D":
+                showAllDeposits();
+                break;
             case "P":
-                System.out.println("Invalid input, Press Enter to try again.");
-//addPayment();
+                showAllPayments();
                 break;
             case "R":
-                System.out.println(" // call to the ledger screen");
+                ReportsDisplay.showReportsScreen();
                 break;
             case "H":
                 System.out.println("Goodbye!");
+                System.out.println();
+                System.out.println();
                 break;
             default:
                 System.out.println("Invalid input, Press Enter to try again.");
@@ -62,10 +62,65 @@ private static final Scanner userInput = new Scanner(System.in);
     }
 
     public static void showAllEntries(){
-        List<Transactions> transactions = new ArrayList<>();
+        System.out.println("All transactions");
+        System.out.println("-".repeat(35));
+        System.out.println("Date:                         Time:                          Description:                  Vendor:                        Amount:");
 
+
+
+        List<Transactions> transactions = FileReader.csvReader("files/transactions.csv");
+        Collections.reverse(transactions);
+
+
+        for (Transactions transaction : transactions){
+            System.out.println(transaction);
+
+        }
 
     }
+
+    public static void showAllDeposits(){
+        System.out.println("All Deposits");
+        System.out.println("-".repeat(35));
+        System.out.println("Date:                         Time:                          Description:                  Vendor:                        Amount:");
+
+
+
+        List<Transactions> transactions = FileReader.csvReader("files/transactions.csv");
+        Collections.reverse(transactions);
+
+
+        for (Transactions transaction : transactions){
+            if (transaction.getAmount() > 0){
+                System.out.println(transaction);
+
+            }
+
+        }
+
+    }
+
+    public static void showAllPayments(){
+        System.out.println("All Payments");
+        System.out.println("-".repeat(35));
+        System.out.println("Date:                         Time:                          Description:                  Vendor:                        Amount:");
+
+
+
+        List<Transactions> transactions = FileReader.csvReader("files/transactions.csv");
+        Collections.reverse(transactions);
+
+
+        for (Transactions transaction : transactions){
+            if (transaction.getAmount() < 0){
+                System.out.println(transaction);
+
+            }
+
+        }
+
+    }
+
 
 }
 
